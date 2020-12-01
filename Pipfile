@@ -9,7 +9,6 @@ flake8 = "*"
 flake8-black = "*"
 
 [packages]
-airtable = "*"
 airtable-python-wrapper = "*"
 discord = "*"
 
