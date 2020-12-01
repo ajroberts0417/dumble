@@ -102,7 +102,7 @@ async def on_message(msg: discord.Message):
         except DiscordUserNotFound:
             await msg.channel.send(
                 "That person isn't signed up for the matchmaking service. "
-                "Sign up here: https://airtable.com/tbl8bNs3vfb5gMm5V"
+                "Sign up here: https://airtable.com/shrVpwd24p1353Ukk"
             )
             return
 
