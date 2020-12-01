@@ -18,6 +18,11 @@ Maintainer: andrew (msg @andrew in GZM discord for help)
 4. Enter the pipenv virtual environment
 `pipenv shell`
 
+5. Run the bot:
+`python matchmaker.py`
+
+Boom! It's that easy -- you're now hosting Dumble locally.
+
 ## Contributing
 Follow the quickstart guide to clone the source.
 
