@@ -49,7 +49,7 @@ def list_available_users() -> List[User]:
     https://airtable-python-wrapper.readthedocs.io/en/master/params.html
 
     """
-    return airtable.get_all(formula="NOT({Email}='')")
+    return airtable.get_all(formula="AND(NOT({Email}=''), NOT({Looking for}=''))")
 
 
 def find_match(user: User) -> User:
@@ -136,7 +136,7 @@ async def on_message(msg: discord.Message):
 
     elif msg.content.startswith("!dumble"):
         await msg.channel.send(
-            "Sorry, I didn't get that. I don't have a help command either"
+            "Sorry, I didn't get that. I don't have a help command either, so "
             "go pester Andrew to build one."
         )
 
