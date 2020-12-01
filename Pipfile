@@ -5,9 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 black = "*"
+flake8 = "*"
+flake8-black = "*"
 
 [packages]
 airtable = "*"
+airtable-python-wrapper = "*"
+discord = "*"
 
 [requires]
 python_version = "3.8"
