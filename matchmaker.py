@@ -105,6 +105,12 @@ async def on_message(msg: discord.Message):
                 "Sign up here: https://airtable.com/shrVpwd24p1353Ukk"
             )
             return
+        except IndexError:
+            await msg.channel.send(
+                "There doesn't seem to be any other users in this channel matching your selection criteria. "
+                "Ask members in your community to sign up for Dumble! https://airtable.com/shrVpwd24p1353Ukk"
+            )
+            return
 
         # format message
         response = "Congrats! {} and {} just matched.".format(
