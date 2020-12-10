@@ -16,6 +16,15 @@ AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY")
 client = discord.Client()
 airtable = airtable.Airtable(AIRTABLE_BASE, "dumble", AIRTABLE_API_KEY)
 
+copy = {
+    "intro": "Welcome to Dumble! Are you open to matching in a romantic or friendly manner today?",
+    "friendly": "😃",  # smiley face emoji
+    "romantic": "💕",  # two hearts emoji
+    "either": "😊",  # blushing emoji
+}
+
+romanticPool = set()  # {discord.User}, remove user when matched
+friendlyPool = set()
 
 UserFields = TypedDict(
     "UserFields",
@@ -89,62 +98,92 @@ async def on_ready():
     print(f"{client.user} has connected to Discord!")
 
 
+async def addReactions(msg: discord.Message, emojis: List):
+    for emoji in emojis:
+        await msg.add_reaction(emoji)
+
+
+async def userInterface(user: discord.Member, channel):
+    introMsg = None
+    try:
+        introMsg = await user.send(copy["intro"])
+    except discord.Forbidden:
+        await channel.send(
+            user.display_name
+            + " please allow DM's from this bot and retype '!dumble' in order to proceed!"
+        )
+        return
+
+    emojis = [copy["romantic"], copy["friendly"]]
+    await addReactions(introMsg, emojis)
+
+
+@client.event
+async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
+    # Romantic Or Friendly
+    if (
+        user != client.user
+        and reaction.message.author == client.user
+        and reaction.message.content == copy["intro"]
+    ):
+        print("Reaction added to bot DM!", str(reaction))
+        if str(reaction) == copy["romantic"]:
+            romanticPool.add(user)
+            print(romanticPool)
+        elif str(reaction) == copy["friendly"]:
+            friendlyPool.add(user)
+            print(friendlyPool)
+    # Match Or Don't Match
+    elif ():
+        pass
+
+    # Base Case
+    else:
+        return
+
+
+def getUserData(discord_id: str):
+    """
+    Find user in airtable else return None
+    """
+    users = airtable.search("Discord", discord_id)
+
+    if len(users) == 0:
+        return None
+    return users[0]  # if multiple users are returned, just grab the first one ¯\_(ツ)_/¯
+
+
 @client.event
 async def on_message(msg: discord.Message):
-    if msg.content == "!dumble":
+    if msg.content.strip() == "!dumble":
         # get discord user from message
         author = msg.author
         print(author)
-        discord_id = "{}#{}".format(author.name, author.discriminator)
-        print(discord_id)
-        try:
-            user, match = find_match_by_discord_id(discord_id)
-        except DiscordUserNotFound:
+
+        user = getUserData(str(author))
+        if user == None:
             await msg.channel.send(
-                "That person isn't signed up for the matchmaking service. "
-                "Sign up here: https://airtable.com/shrVpwd24p1353Ukk"
+                "Oh no! "
+                + author.display_name
+                + " isn't signed up for Dumble. "
+                + "Sign up here: https://airtable.com/shrVpwd24p1353Ukk"
             )
-            return
-        except IndexError:
+        else:
             await msg.channel.send(
-                "There doesn't seem to be any other users in this channel matching your selection criteria. "
-                "Ask members in your community to sign up for Dumble! https://airtable.com/shrVpwd24p1353Ukk"
+                author.display_name
+                + " has joined the Dumble matchmaking pool! @"
+                + author.display_name
+                + " Please check your DM's from this bot to proceed!"
             )
-            return
-
-        # format message
-        response = "Congrats! {} and {} just matched.".format(
-            user["fields"]["Name"],
-            match["fields"]["Name"],
-        )
-
-        await msg.channel.send(response)
-
-    elif msg.content.startswith("!dumble") and len(msg.mentions) == 1:
-        matchee = msg.mentions[0]
-        discord_id = "{}#{}".format(matchee.name, matchee.discriminator)
-        try:
-            user, match = find_match_by_discord_id(discord_id)
-        except DiscordUserNotFound:
-            await msg.channel.send(
-                "That person isn't signed up for the matchmaking service. "
-                "Sign up here: https://airtable.com/shrVpwd24p1353Ukk"
-            )
-            return
-
-        # format message
-        response = "Congrats! {} and {} just matched.".format(
-            user["fields"]["Name"],
-            match["fields"]["Name"],
-        )
-
-        await msg.channel.send(response)
+            await userInterface(author, msg.channel)
+        return
 
     elif msg.content.startswith("!dumble"):
         await msg.channel.send(
             "Sorry, I didn't get that. I don't have a help command either, so "
-            "go pester Andrew to build one."
+            + "go pester Eric or Andrew to build one."
         )
+        return
 
 
 client.run(TOKEN)
