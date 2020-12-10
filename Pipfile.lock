@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "83f8b4a4e4f0978ce5507df20be3fbbc2427e7ee8b6ec15ced0e56f9a8569a72"
+            "sha256": "fc96d58edc4af8ad2c1d2c1037a6b8e1e735c3b2c31c2c100362e95537822ca3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,13 +35,6 @@
             "markers": "python_full_version >= '3.5.3'",
             "version": "==3.6.3"
         },
-        "airtable": {
-            "hashes": [
-                "sha256:7296119221137ba7b928497e9435f475c0c17554276814d0d41a4cd36e856f64"
-            ],
-            "index": "pypi",
-            "version": "==0.3.1"
-        },
         "airtable-python-wrapper": {
             "hashes": [
                 "sha256:7f0517aeb13be1fea5aa65cabf02d479b9788884230f462e464d47c8e64dfb33",
@@ -68,10 +61,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:1f422849db327d534e3d0c5f02a263458c3955ec0aae4ff09b95f195c59f4edd",
-                "sha256:f05def092c44fbf25834a51509ef6e631dc19765ab8a57b4e7ab85531f0a9cf4"
+                "sha256:1a4995114262bffbc2413b159f2a1a480c969de6e6eb13ee966d470af86af59c",
+                "sha256:719a74fb9e33b9bd44cc7f3a8d94bc35e4049deebe19ba7d8e108280cfd59830"
             ],
-            "version": "==2020.11.8"
+            "version": "==2020.12.5"
         },
         "chardet": {
             "hashes": [

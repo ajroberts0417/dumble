@@ -15,13 +15,17 @@ Maintainer: andrew (msg @andrew in GZM discord for help)
 3. Install dependencies
 `pipenv install`
 
-4. Enter the pipenv virtual environment
+4. Create a bot account and add it to your test discord server following this guide https://discordpy.readthedocs.io/en/latest/discord.html
+
+5. Create a file `.env` with keys AIRTABLE_API_KEY, AIRTABLE_BASE, and DISCORD_TOKEN from Airtable and from the Discord bot in the format: KEY="[ key ]"
+
+6. Enter the pipenv virtual environment
 `pipenv shell`
 
-5. Run the bot:
+7. Run the bot:
 `python matchmaker.py`
 
-Boom! It's that easy -- you're now hosting Dumble locally.
+Boom! You're now hosting Dumble locally.
 
 ## Contributing
 Follow the quickstart guide to clone the source.
