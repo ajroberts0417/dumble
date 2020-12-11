@@ -2,7 +2,9 @@
 
 GZM hack to matchmake GZM members #MarriagePact #TraditionalFamilyValues #Feminism
 
-Maintainer: andrew (msg @andrew in GZM discord for help)
+Maintainers: 
+andrew (msg @andrew in GZM discord for help)
+Eric (@erictrimbs#6511 on Discord)
 
 
 ## Quickstart
